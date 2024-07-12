@@ -45,7 +45,8 @@ COPY freepbx/installlib/files/odbc.ini /etc/odbc.ini
 COPY freepbx/installlib/files/odbcinst.ini /etc/odbcinst.ini
 
 # Download Asterisk source files
-COPY asterisk-16.30.0 asterisk/
+RUN curl -sL https://github.com/asterisk/asterisk/releases/download/20.8.1/asterisk-20.8.1.tar.gz
+RUN tar -xzf asterisk-20.8.1.tar.gz -C ./asterisk
 # Build Asterisk
 RUN asterisk/contrib/scripts/install_prereq install
 RUN cd asterisk/ && ./configure \

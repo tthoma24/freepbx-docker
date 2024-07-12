@@ -9,7 +9,7 @@ For a simplified version without Vault, check out the other branch named "simple
 Check this other repo out for running this app in [Kubernetes](https://github.com/escomputers/k8s-freepbx)
 
 * FreePBX 16
-* Asterisk 16
+* Asterisk 20
 * MySQL database support
 * Fail2ban pre-configured with restrictive enforcement rules
 * Supports data persistence
