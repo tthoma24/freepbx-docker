@@ -40,9 +40,11 @@ RUN cd odbc/ && dpkg -i mysql-community-client-core_8.0.27-1debian11_amd64.deb
 RUN cd odbc/ && dpkg -i mysql-community-client_8.0.27-1debian11_amd64.deb
 RUN cd odbc/ && dpkg -i mysql-connector-odbc_8.0.33-1debian11_amd64.deb
 
-# Copy FreePBX files
-COPY freepbx/installlib/files/odbc.ini /etc/odbc.ini
-COPY freepbx/installlib/files/odbcinst.ini /etc/odbcinst.ini
+# Download and stage FreePBX files
+RUN curl -sL http://mirror.freepbx.org/modules/packages/freepbx/freepbx-16.0-latest.tgz
+RUN tar -xzf freepbx-16.0-latest.tgz -C ./freepbx
+RUN cp freepbx/installlib/files/odbc.ini /etc/odbc.ini
+RUN cp freepbx/installlib/files/odbcinst.ini /etc/odbcinst.ini
 
 # Download Asterisk source files
 RUN curl -sL https://github.com/asterisk/asterisk/releases/download/20.8.1/asterisk-20.8.1.tar.gz
@@ -66,9 +68,6 @@ RUN chown -R asterisk. /var/lib/asterisk
 RUN chown -R asterisk. /var/log/asterisk
 RUN chown -R asterisk. /var/spool/asterisk
 RUN chown -R asterisk. /usr/lib/asterisk && rm -rf /var/www/html
-
-# Download and install FreePBX
-COPY freepbx freepbx/
 RUN touch /etc/asterisk/modules.conf && touch /etc/asterisk/cdr.conf
 
 # Install OpenSSL
